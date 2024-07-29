@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_absolute_percentage_error, r2_score
 import os
 
@@ -12,10 +13,13 @@ estate_dataset = pd.read_csv(dataset_path)
 
 features = estate_dataset.drop(['house_price_of_unit_area', 'no'], axis=1)
 response = estate_dataset['house_price_of_unit_area']
-test_x, train_x, test_y, train_y = train_test_split(features, response, random_state=RANDOM_SEED, test_size=0.2)
+
+poly = PolynomialFeatures(degree=2)
+features_poly = poly.fit_transform(features)
+
+train_x, test_x, train_y, test_y = train_test_split(features_poly, response, random_state=RANDOM_SEED, test_size=0.2)
 
 model = LinearRegression()
-
 model.fit(train_x, train_y)
 pred_y = model.predict(test_x)
 abs_error = round(mean_absolute_percentage_error(test_y, pred_y) * 100, 2)

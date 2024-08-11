@@ -21,7 +21,7 @@ x, y = make_classification(
     random_state=RANDOM_SEED,
 )
 
-poly = PolynomialFeatures(degree=1)
+poly = PolynomialFeatures(degree=3)
 x_poly = poly.fit_transform(x)
 
 model = LogisticRegression(max_iter=1000)

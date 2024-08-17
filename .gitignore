@@ -1,0 +1,72 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Temporary files created by editors
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+.vscode/
+
+# IDE configuration files
+.idea/
+*.iml
+
+# pip cache files
+pip-selfcheck.json
+
+# Installed package directory
+__pypackages__/
+
+# Test results
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Type checking caches
+*.mypy_cache/
+.pytest_cache/
+.pyre/
+
+# Dependency lockfiles
+poetry.lock
+Pipfile.lock
+*.spec
+
+# Executable files
+*.exe
+*.out
+*.app
+*.dll
+*.deb
+*.dmg
+*.iso
+
+# Documentation output
+docs/_build/

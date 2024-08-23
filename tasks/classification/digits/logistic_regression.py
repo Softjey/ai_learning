@@ -6,6 +6,7 @@ from sklearn.model_selection import GridSearchCV
 # import pickle
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
 
 dataset = load_digits()
 target = dataset['target']
@@ -19,7 +20,7 @@ features = dataset['data']
 pipeline = Pipeline([
     ('poly', PolynomialFeatures()),
     ('scaler', StandardScaler()),
-    ('model', LogisticRegressionCV(max_iter=1000, Cs=np.linspace(0.001, 10, 50)))
+    ('model', LogisticRegressionCV(max_iter=1000, Cs=np.linspace(0.001, 10, 50), n_jobs=-1))
 ])
 
 grid_param = {
@@ -32,7 +33,7 @@ grid_param = {
     # ]
 }
 
-grid_search = GridSearchCV(pipeline, grid_param, verbose=3)
+grid_search = GridSearchCV(pipeline, grid_param, verbose=3, n_jobs=-1)
 grid_search.fit(features, target)
 
 print(f'Best score: {grid_search.best_score_}')
@@ -43,5 +44,8 @@ fig, axes = plt.subplots(nrows=4, ncols=10, figsize=(10, 4))
 for ax, image, num, in zip(axes.ravel(), dataset['images'], target):
   ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
   ax.set_title(f"{num}")
+
+with open(f'logistic_regression_model_{round(grid_search.best_score_, 4)}.pkl', 'wb') as file:
+  pickle.dump(grid_search.best_estimator_, file)
 
 plt.show()

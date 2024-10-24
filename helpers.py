@@ -1,6 +1,8 @@
+from sklearn.model_selection import GridSearchCV
 import os
 import pandas as pd
 import numpy as np
+import pickle
 
 
 def get_csv_dataset(file_path: str, dataset_path: str) -> pd.DataFrame:
@@ -8,6 +10,22 @@ def get_csv_dataset(file_path: str, dataset_path: str) -> pd.DataFrame:
   dataset_path = os.path.join(current_dir, dataset_path)
 
   return pd.read_csv(dataset_path, on_bad_lines="warn")
+
+
+def unpickle(file_path: str, dataset_path: str, **setup):
+  current_dir = os.path.dirname(file_path)
+  dataset_path = os.path.join(current_dir, dataset_path)
+
+  with open(dataset_path, 'rb') as file:
+    dict = pickle.load(file, **setup)
+  return dict
+
+
+def fit_grid_search(grid_search: GridSearchCV, features, target):
+  grid_search.fit(features, target)
+
+  print(f'Best score: {grid_search.best_score_}')
+  print(f'Best params: {grid_search.best_params_}')
 
 
 def make_hearts(
